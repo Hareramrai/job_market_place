@@ -1,0 +1,252 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "API V1",
+    "version": "v1"
+  },
+  "basePath": "/api/v1",
+  "servers": [
+    {
+      "url": "http://{defaultHost}",
+      "variables": {
+        "defaultHost": {
+          "default": "localhost:3000/api/v1"
+        }
+      }
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "jwt": {
+        "type": "apiKey",
+        "escription": "Bearer ey....",
+        "name": "Authorization",
+        "in": "header"
+      }
+    },
+    "schemas": {
+      "error_object": {
+        "type": "object",
+        "properties": {
+          "error": {
+            "type": "string",
+            "description": "Message"
+          }
+        }
+      },
+      "errors_object": {
+        "type": "object",
+        "properties": {
+          "errors": {
+            "$ref": "#/components/schemas/errors_map"
+          }
+        }
+      },
+      "errors_map": {
+        "type": "object",
+        "additionalProperties": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "login": {
+        "type": "object",
+        "properties": {
+          "session": {
+            "$ref": "#/components/schemas/user_field"
+          }
+        },
+        "required": [
+          "session"
+        ]
+      },
+      "new_user": {
+        "type": "object",
+        "properties": {
+          "user": {
+            "$ref": "#/components/schemas/user_field"
+          }
+        },
+        "required": [
+          "user"
+        ]
+      },
+      "user_field": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "description": "Email",
+            "example": "myemail@example.com"
+          },
+          "password": {
+            "type": "string",
+            "description": "Password",
+            "example": "Password1234"
+          }
+        },
+        "required": [
+          "email",
+          "password"
+        ]
+      },
+      "user": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "ID"
+          },
+          "email": {
+            "type": "string",
+            "description": "Email",
+            "example": "myemail@example.com"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date"
+          }
+        }
+      }
+    }
+  },
+  "paths": {
+    "/login": {
+      "post": {
+        "summary": "Authenticate User",
+        "tags": [
+          "Authentication API"
+        ],
+        "parameters": [
+
+        ],
+        "responses": {
+          "200": {
+            "description": "authenticates and returns a new token",
+            "content": {
+            }
+          },
+          "400": {
+            "description": "returns bad when password incorrect",
+            "content": {
+            }
+          },
+          "422": {
+            "description": "returns validation when incorrect params",
+            "content": {
+            }
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/login"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/": {
+      "post": {
+        "summary": "Create a user",
+        "tags": [
+          "Users API"
+        ],
+        "parameters": [
+
+        ],
+        "responses": {
+          "200": {
+            "description": "Created a user",
+            "content": {
+            }
+          },
+          "422": {
+            "description": "Validation failed for request",
+            "content": {
+            }
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/new_user"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/{id}": {
+      "patch": {
+        "summary": "Update a user",
+        "tags": [
+          "Users API"
+        ],
+        "security": [
+          {
+            "jwt": [
+
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Updated a user",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "$ref": "#/components/schemas/user"
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation failed for request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "$ref": "#/components/schemas/errors_object"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/new_user"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
