@@ -1,24 +1,44 @@
-# README
+# Job Market Place Application
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## About
 
-Things you may want to cover:
+This is a Ruby on Rails API based application, which helps the user to create new jobs & able to
+submit application for the job openings.
 
-* Ruby version
+## System dependencies
 
-* System dependencies
+1. `Ruby 2.7.2`
+2. `Rails 6.0.3`
+3. `Postgres`
+4. `Docker for Mac`
 
-* Configuration
+## Development Setup
 
-* Database creation
+- Build Docker
 
-* Database initialization
+`docker-compose build`
 
-* How to run the test suite
+- Database creation
 
-* Services (job queues, cache servers, search engines, etc.)
+`docker-compose run web rake db:setup`
 
-* Deployment instructions
+- Start the Application
+    `docker-compose up`
 
-* ...
+## How to run the test suite
+
+`docker-compose run -e RAILS_ENV=test web rspec`
+
+## Patterns of Development
+
+I personally try to keep things simple and small as much as possible. I am a fan of DRY but don't like to go super dry.
+
+Btw I am a good believer in the single responsibility principle & prefer to have a number of classes instead of having a giant single class.
+
+## API Documentation
+
+- http://localhost:3000/api-docs/index.html
+
+## Deployment instructions
+
+- `git push heroku master`

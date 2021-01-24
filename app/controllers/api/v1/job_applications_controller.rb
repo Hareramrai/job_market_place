@@ -12,6 +12,6 @@ class Api::V1::JobApplicationsController < Api::BaseController
   private
 
     def job_application_params
-      params.require(:job_application).permit(:user_id, :job_id)
+      params.require(:job_application).permit(:user_id)
     end
 end
