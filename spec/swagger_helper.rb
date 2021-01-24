@@ -174,6 +174,19 @@ RSpec.configure do |config|
               },
             },
           },
+          new_job_application: {
+            type: :object,
+            properties: {
+              job_application: {
+                type: :object,
+                properties: {
+                  job_id: { type: :integer, description: "Job Id" },
+                },
+              },
+              required: %w[job_id],
+            },
+            required: %w[job_application],
+          },
         },
       },
     },
