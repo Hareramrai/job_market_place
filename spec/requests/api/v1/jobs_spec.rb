@@ -2,7 +2,7 @@
 
 require "swagger_helper"
 
-RSpec.describe "Api::V1::UsersController", type: :request, swagger_doc: SWAGGER_V1_DOC do
+RSpec.describe "Api::V1::JobsController", type: :request, swagger_doc: SWAGGER_V1_DOC do
   include_context "sample jobs"
 
   let!(:user) { create(:user) }
@@ -17,7 +17,7 @@ RSpec.describe "Api::V1::UsersController", type: :request, swagger_doc: SWAGGER_
 
       parameter in: :body, name: :params, schema: { "$ref" => "#/components/schemas/new_job" }
 
-      response "200", "Created a user" do
+      response "200", "Created a job" do
         let(:shift) { build(:shift) }
         let(:job) {  attributes_for(:job, shifts_attributes: [shift]) }
         let(:params) { { job: job } }

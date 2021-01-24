@@ -4,6 +4,8 @@ class Job < ApplicationRecord
   acts_as_taggable_on :languages
 
   has_many :shifts, dependent: :destroy
+  has_many :job_applications, dependent: :destroy
+  has_many :users, through: :job_applications
 
   # Validations
   validates :title, :rate, presence: true

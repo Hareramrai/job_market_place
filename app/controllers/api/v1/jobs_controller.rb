@@ -5,7 +5,10 @@ class Api::V1::JobsController < Api::BaseController
 
   # GET /jobs
   def index
-    @jobs = Jobs::IndexQuery.new(Job.includes(:shifts)).call(search_params)
+    @jobs = Jobs::IndexQuery
+            .new(Job.includes(:shifts))
+            .call(search_params)
+            .page params[:page]
   end
 
   # POST /jobs

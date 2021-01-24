@@ -4,6 +4,9 @@ class User < ApplicationRecord
   has_secure_password
   has_secure_token :token
 
+  has_many :job_applications, dependent: :destroy
+  has_many :jobs, through: :job_applications
+
   attribute :password
 
   validates :email, presence: true, uniqueness: { case_sensitive: false }

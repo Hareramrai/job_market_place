@@ -210,10 +210,69 @@
             }
           }
         }
+      },
+      "new_job_application": {
+        "type": "object",
+        "properties": {
+          "job_application": {
+            "type": "object",
+            "properties": {
+              "job_id": {
+                "type": "integer",
+                "description": "Job Id"
+              }
+            }
+          },
+          "required": [
+            "job_id"
+          ]
+        },
+        "required": [
+          "job_application"
+        ]
       }
     }
   },
   "paths": {
+    "/job_applications/": {
+      "post": {
+        "summary": "Create a job application",
+        "tags": [
+          "Job Applications API"
+        ],
+        "security": [
+          {
+            "jwt": [
+
+            ]
+          }
+        ],
+        "parameters": [
+
+        ],
+        "responses": {
+          "200": {
+            "description": "Created a job application",
+            "content": {
+            }
+          },
+          "422": {
+            "description": "Validation failed if alredy applied",
+            "content": {
+            }
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/new_job_application"
+              }
+            }
+          }
+        }
+      }
+    },
     "/jobs/": {
       "post": {
         "summary": "Create a job with shifts",
@@ -232,7 +291,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Created a user",
+            "description": "Created a job",
             "content": {
             }
           },
