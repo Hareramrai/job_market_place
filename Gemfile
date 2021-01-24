@@ -31,9 +31,15 @@ gem "bootsnap", ">= 1.4.2", require: false
 # validate email format
 gem "email_validator"
 
+# validate timeline
+gem "validates_timeliness"
+
 # swagger documentation
 gem "rswag-api"
 gem "rswag-ui"
+
+# taggings support
+gem "acts-as-taggable-on"
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
