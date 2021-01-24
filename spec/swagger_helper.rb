@@ -116,6 +116,64 @@ RSpec.configure do |config|
               },
             },
           },
+          new_job: {
+            type: :object,
+            properties: {
+              job: { "$ref" => "#/components/schemas/job_field" },
+            },
+            required: %w[job],
+          },
+          job_field: {
+            type: :object,
+            properties: {
+              title: {
+                type: :string,
+                description: "Job title",
+              },
+              rate: {
+                type: :number,
+                description: "Salary per hour",
+              },
+              language_list: {
+                type: :string,
+                description: "Spoken languages by comma separated",
+              },
+              shifts_attributes: {
+                type: :array,
+                items: {
+                  properties: {
+                    start_time: { type: :string, format: "date-time" },
+                    end_time: { type: :string, format: "date-time" },
+                  },
+                },
+              },
+            },
+            required: %w[title rate language_list shifts_attributes],
+          },
+          job: {
+            type: :object,
+            properties: {
+              id: { type: :integer },
+              title: { type: :string, description: "Job title and searchable" },
+              rate: { type: :number, description: "Salary per hour" },
+              languages: {
+                type: :array, items: { type: :string },
+                description: "Spoken languages & searchable",
+              },
+              paying: { type: :number, description: "Salary per hour * Total shifts hours" },
+              shifts: {
+                type: :array,
+                items: {
+                  properties: {
+                    id: { type: :integer },
+                    start_time: { type: :string, format: "date-time" },
+                    end_time: { type: :string, format: "date-time" },
+                    working_hours: { type: :number },
+                  },
+                },
+              },
+            },
+          },
         },
       },
     },
